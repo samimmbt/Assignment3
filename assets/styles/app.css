@@ -1,3 +1,27 @@
 body {
-    background-color: skyblue;
+    background-color: #282828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width: 99vw;
+    height: 97vh;
+}
+
+.example-wrapper {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 45%;
+    font: 18px/1.5 sans-serif;
+    text-align: center;
+    color: #F5F5F5;
+}
+
+.example-wrapper code {
+    background: #F5F5F5;
+    padding: 2px 6px;
+}
+
+#center {
+    align-self: center;
 }
