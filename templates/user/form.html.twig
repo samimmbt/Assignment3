@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+<h1 id="formTitle">Signin!</h1>
+<div class="field_block">
+	<label for="user_firstName">{{ field_label(form.firstName) }}</label>
+	<input name="{{ field_name(form.firstName) }}" value="{{ field_value(form.firstName) }}" placeholder="{{ field_label(form.firstName) }}" class="field" id="user_firstName" class="form-control">
+</div>
+
+<div class="field_block">
+	<label for="user_lastName">{{ field_label(form.lastName) }}</label>
+
+	<input name="{{ field_name(form.lastName) }}" value="{{ field_value(form.lastName) }}" placeholder="{{ field_label(form.lastName) }}" class="field" id="user_lastName" class="form-control">
+</div>
+<div class="field_block">
+	<label for="user_mail">{{ field_label(form.email) }}</label>
+
+	<input type="email" name="{{ field_name(form.email) }}" value="{{ field_value(form.email) }}" placeholder="{{ field_label(form.email) }}" class="field" id="user_mail" class="form-control">
+</div>
+<div class="field_block">
+	<label for="user_age">{{ field_label(form.age) }}</label>
+
+	<input type="date" value="{{ field_value(form.age) }}" id="user_age" name="{{ field_name(form.age) }}" class="field">
+</div>
+<button class="btn">{{ button_label|default('SignIn') }}</button>
+{{form_end(form)}}

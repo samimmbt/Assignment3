@@ -6,8 +6,12 @@ body {
     align-content: center;
     width: 99vw;
     height: 97vh;
+    color: #cecece;
 }
 
+.lighter{
+    color: #ffffff;
+}
 .example-wrapper {
     margin: 1em auto;
     max-width: 800px;

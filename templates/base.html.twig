@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% if is_logged %}
+				{% block title %}Welcome!
+				{% endblock %}
+			{% else %}
+				You Are not Logged in!
+			{% endif %}
+		</title>
+		{% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        
-        {% block body %}
-        <div id="center">
-        {% block center %}
-        {%if isLogged%}
-        <h2>Welcome To Main Page</h2>
-        {%else %}
-        <h2>You'r not logged in!</h2>
-        {% endif %}
-        {% endblock center %}
-        </div>
-        {% endblock %}
-    </body>
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body>
+		{% if not is_logged %}
+			<div id="header"></div>
+		{% endif %}
+
+		{% block body %}
+			<div id="center">
+				{% block center %}
+					{% if is_logged %}
+						<h2>Welcome To Main Page</h2>
+					{% else %}
+						<h2>You'r not logged in!</h2>
+					{% endif %}
+				{% endblock center %}
+			</div>
+		{% endblock body %}
+	</body>
 </html>
