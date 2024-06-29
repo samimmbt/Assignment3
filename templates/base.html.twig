@@ -19,9 +19,18 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% if not is_logged %}
-			<div id="header"></div>
-		{% endif %}
+
+		<div id="header">
+			{% if is_logged %}
+				<form action="{{ path('delete_session') }}" method="post" class="delete-session-form">
+					<button type="submit" class="btn btn-danger">Delete Session</button>
+				</form>
+			{% else %}
+			 <a href="{{ path('app_logIn') }}" class="btn btn-danger lighter">Log In</a>
+			 <a href="{{ path('app_signUp') }}" class="btn btn-danger lighter">Sign Up</a>
+			{% endif %}
+		</div>
+
 
 		{% block body %}
 			<div id="center">

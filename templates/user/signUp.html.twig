@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+{% block center %}
+<div class="example-wrapper">
+{% block formBody %}{% endblock formBody %}
+{{ include('user/form.html.twig') }}
+</div>
+{% endblock center %}
+
+{% endblock %}

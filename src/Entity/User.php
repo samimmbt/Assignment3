@@ -27,6 +27,9 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\Column]
+    private ?int $login_count = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,18 @@ class User
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+    public function getLoginCount(): ?int
+    {
+        return $this->login_count;
+    }
+
+    public function setLoginCount(int $login_count): static
+    {
+        // $this->login_count = $login_count;
+        $this->login_count++;
         return $this;
     }
 }
