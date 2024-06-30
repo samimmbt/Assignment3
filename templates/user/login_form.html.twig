@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+<h1 id="formTitle">Login!</h1>
+
+<div class="field_block">
+	<label for="user_mail">{{ field_label(form.email) }}</label>
+
+	<input type="email" name="{{ field_name(form.email) }}" value="{{ field_value(form.email) }}" placeholder="{{ field_label(form.email) }}" class="field" id="user_mail" class="form-control">
+</div>
+<button class="btn">{{ button_label|default('SignIn') }}</button>
+{{form_end(form)}}

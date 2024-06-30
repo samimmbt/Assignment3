@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\LoginType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -25,7 +26,7 @@ class PageController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$logged) {
-            
+            $user->setLoginCount(1);
             $user = $form->getData();
             # php bin/console dbal:run-sql "SELECT * FROM product"
             $entityManager->persist($user);
@@ -33,11 +34,10 @@ class PageController extends AbstractController
 
             $session->set("logged", true);
 
-            $logger->info($user->getfirstName() . " ," . $user->getLastName());
 
             return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
         } else if ($logged) {
-            return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
+            // return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
         }
 
         return $this->render('user/signUp.html.twig', [
@@ -48,24 +48,25 @@ class PageController extends AbstractController
     }
 
     #[Route('/logIn', name: 'app_logIn')]
-    public function logIn(Request $request, LoggerInterface $logger): Response
+    public function logIn(Request $request, LoggerInterface $logger,EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(LoginType::class, $user);
         $session = $request->getSession();
         $logged = $session->get("logged");
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && !$logged) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $user = $form->getData();
-            $session->set("logged", true);
+            $formData = $form->getData();
+            $user = $entityManager->getRepository(User::class)->findByEmail($formData->getEmail());
+            echo $user;
+        //     $user->setLoginCount(1);
+            
+        //     $session->set("logged", true);
 
-            $logger->info($user->getfirstName() . " ," . $user->getLastName());
-            return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
-        } else if ($logged) {
-            return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
+        //     $logger->info($user->getfirstName() . " ," . $user->getLastName());
+        //     return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
+        // } else if ($logged) {
+        //     return $this->redirectToRoute('app_main_page', ['is_logged' => true]);
         }
 
         return $this->render('user/logIn.html.twig', [
