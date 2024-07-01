@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Safe\DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -31,10 +32,10 @@ class User
     #[ORM\Column]
     private ?int $login_count = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
@@ -95,10 +96,10 @@ class User
         return $this->login_count;
     }
 
-    public function setLoginCount(int $login_count): static
+    public function setLoginCount(): static
     {
         // $this->login_count = $login_count;
-        $this->login_count = $this->login_count + 1;
+        $this->login_count++;
         return $this;
     }
 
@@ -127,8 +128,9 @@ class User
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
-        $this->updatedAt = new  \DateTimeImmutable;
+        $this->updatedAt = new \DateTimeImmutable();
     }
+
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
